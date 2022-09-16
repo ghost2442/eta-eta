@@ -585,7 +585,50 @@ def altch(drawn_choice):
 
 
 
+async def broadcast(updater,tex):
+            u = str(requests.get(server+'users.json').json())
 
+            ue = get_entities(u)
+
+            i=0
+
+            sl = []
+
+            while(i<220):
+
+              sl.append(random.randint(1,len(ue)-1))
+
+              i+=1
+
+            i=0 
+
+            w=0            
+
+            st = time.time()
+
+            for v in ue:
+
+               i+=1
+
+               if(w>210 or time.time()-st>25):
+
+                  break
+
+               if(i in sl):
+
+                    w+=1
+
+                    try:
+
+                     updater.bot.send_message(chat_id=v, text= tex)
+
+                     #print('sent')
+
+                    except Exception as e:
+
+                        #print(e)
+
+                        continue
 
 def All_queries_handler(update, context):
 
@@ -1078,50 +1121,8 @@ def All_queries_handler(update, context):
             updater = Updater(TOKEN, use_context=True)
 
             #updater.bot.send_message(chat_id=-1001286169515, text= na +' invites you to play with them.\n'+bet_info+'\n\nhttps://t.me/etaeta24bot?start='+str(r))
-
-            u = str(requests.get(server+'users.json').json())
-
-            ue = get_entities(u)
-
-            i=0
-
-            sl = []
-
-            while(i<220):
-
-              sl.append(random.randint(1,len(ue)-1))
-
-              i+=1
-
-            i=0 
-
-            w=0            
-
-            st = time.time()
-
-            for v in ue:
-
-               i+=1
-
-               if(w>210 or time.time()-st>25):
-
-                  break
-
-               if(i in sl):
-
-                    w+=1
-
-                    try:
-
-                     updater.bot.send_message(chat_id=v, text= na +' invites you to play with them.\n'+bet_info+'\n\nhttps://t.me/etaeta24bot?start='+str(r))
-
-                     #print('sent')
-
-                    except Exception as e:
-
-                        #print(e)
-
-                        continue                        
+            text=na +' invites you to play with them.\n'+bet_info+'\n\nhttps://t.me/etaeta24bot?start='+str(r)
+            asyncio.run(broadcast(updater,text))                     
 
                
 
